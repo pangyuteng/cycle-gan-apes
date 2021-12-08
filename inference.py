@@ -1,6 +1,7 @@
 
 import sys
-from cyclegan import CycleGAN
+#from cyclegan import CycleGAN
+from cyclegan1 import CycleGAN
 
 import numpy as np
 from imageio import imwrite
