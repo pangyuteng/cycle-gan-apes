@@ -49,7 +49,11 @@ bash download.sh
 
 # train
 CUDA_VISIBLE_DEVICES=0 python cyclegan.py
-                                                                                                            
+
+# inference
+CUDA_VISIBLE_DEVICES=1 python inference.py static/jason-calcanis.jpg
+
+
 ``` 
 
 ## sample image at epoch 0 batch 1000 
