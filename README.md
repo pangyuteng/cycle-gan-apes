@@ -39,6 +39,12 @@ https://github.com/eriklindernoren/Keras-GAN/tree/master/cyclegan
 docker build -t apes .                                                               
                                                                                      
 docker run -it -w /workdir -v $PWD:/workdir -v /mnt/hd0:/mnt/hd0 apes bash                               
-                                                                                                         
+
+python download.py
+bash download.sh
+
+move the downloaded data to desired locations and modify paths accordingly in `data_loader.py`
+
+CUDA_VISIBLE_DEVICES=0 python cyclegan.py
                                                                                                             
 ``` 
