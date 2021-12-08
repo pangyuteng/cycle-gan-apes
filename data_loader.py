@@ -16,10 +16,10 @@ class DataLoader():
         #path = glob('./datasets/%s/%s/*' % (self.dataset_name, data_type))
         
         if domain == 'A':
-            path = glob('/mnt/hd2/data/apebase/ipfs')
+            path = glob('/mnt/hd2/data/apebase/ipfs/*')
             descr = 'ape'
         elif domain == 'B':
-            path = glob('/mnt/hd2/data/celeba_gan/img_align_celeba')
+            path = glob('/mnt/hd2/data/celeba_gan/img_align_celeba/*')
             descr = 'human'
         else:
             raise NotImplementedError()
@@ -50,9 +50,10 @@ class DataLoader():
         #path_A = glob('./datasets/%s/%sA/*' % (self.dataset_name, data_type))
         #path_B = glob('./datasets/%s/%sB/*' % (self.dataset_name, data_type))
 
-        path_A = glob('/mnt/hd2/data/apebase/ipfs')
-        path_B = glob('/mnt/hd2/data/celeba_gan/img_align_celeba')
-                                                                
+        path_A = glob('/mnt/hd2/data/apebase/ipfs/*')
+        path_B = glob('/mnt/hd2/data/celeba_gan/img_align_celeba/*')
+        print(len(path_A),len(path_B))
+        
         self.n_batches = int(min(len(path_A), len(path_B)) / batch_size)
         total_samples = self.n_batches * batch_size
 
@@ -90,4 +91,4 @@ class DataLoader():
         return img[np.newaxis, :, :, :]
 
     def imread(self, path):
-        return imread(path, mode='RGB').astype(np.float)
+        return imread(path, pilmode='RGB').astype(np.float)
