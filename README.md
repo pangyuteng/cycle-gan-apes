@@ -36,15 +36,22 @@ https://github.com/eriklindernoren/Keras-GAN/tree/master/cyclegan
 ## notes                                                                                                     
                                                     
 ```                                       
-docker build -t apes .                                                               
+
+docker build -t apes .
                                                                                      
 docker run -it -w /workdir -v $PWD:/workdir -v /mnt/hd0:/mnt/hd0 apes bash                               
 
+# download data
 python download.py
 bash download.sh
 
-move the downloaded data to desired locations and modify paths accordingly in `data_loader.py`
+# move the downloaded data to desired locations and modify paths accordingly in `data_loader.py`
 
+# train
 CUDA_VISIBLE_DEVICES=0 python cyclegan.py
                                                                                                             
 ``` 
+
+## sample image - hyperparameters from keras example was left untouched.
+
+![example](static/0_1000.png)
