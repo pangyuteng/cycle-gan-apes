@@ -4,6 +4,11 @@ import numpy as np
 
 from imageio import imread
 from skimage.transform import resize
+import albumentations as A
+
+aug_pipeline = A.Compose([
+    A.ShiftScaleRotate(),
+])
 
 class DataLoader():
     def __init__(self, dataset_name, img_res=(128, 128)):
@@ -73,9 +78,17 @@ class DataLoader():
                 img_B = resize(img_B, self.img_res)
 
                 if not is_testing and np.random.random() > 0.5:
-                        img_A = np.fliplr(img_A)
-                        img_B = np.fliplr(img_B)
-
+                        #img_A = np.fliplr(img_A)
+                        #img_B = np.fliplr(img_B)
+                        augmented = aug_pipeline(
+                            image=img_A,
+                        )
+                        img_A = augmented['image']
+                        augmented = aug_pipeline(
+                            image=img_B,
+                        )
+                        img_B = augmented['image']
+                        
                 imgs_A.append(img_A)
                 imgs_B.append(img_B)
 

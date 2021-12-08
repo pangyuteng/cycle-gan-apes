@@ -167,6 +167,8 @@ class CycleGAN():
                     self.sample_images(epoch, batch_i)
                     self.g_AB.save_weights("saved_model/AB.h5")
                     self.g_BA.save_weights("saved_model/BA.h5")
+                    self.d_A.save_weights("saved_model/dA.h5")
+                    self.d_B.save_weights("saved_model/dB.h5")
           
     def sample_images(self, epoch, batch_i):
         os.makedirs('images/%s' % self.dataset_name, exist_ok=True)
