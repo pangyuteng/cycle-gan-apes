@@ -38,7 +38,7 @@ https://github.com/eriklindernoren/Keras-GAN/tree/master/cyclegan
 ```                                       
 
 docker build -t apes .
-                                                                                     
+                                                                                    
 docker run -it -w /workdir -v $PWD:/workdir -v /mnt/hd0:/mnt/hd0 apes bash                               
 
 # download data
@@ -52,6 +52,11 @@ CUDA_VISIBLE_DEVICES=0 python cyclegan.py
                                                                                                             
 ``` 
 
-## sample image - hyperparameters from keras example was left untouched.
+## sample image at epoch 0 batch 1000 
+ 
++ hyperparameters from keras example was left untouched.
++ data size, apes n=10k, celeba n=202.599k
++ 200 epochs, batch size of 1, each epoch is 10k samples
++ let see what we get tomorrow
 
 ![example](static/0_1000.png)
