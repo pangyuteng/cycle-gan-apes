@@ -51,7 +51,7 @@ bash download.sh
 CUDA_VISIBLE_DEVICES=0 python cyclegan.py
 
 # inference
-CUDA_VISIBLE_DEVICES=1 python inference.py static/jason-calcanis.jpg
+CUDA_VISIBLE_DEVICES=1 python inference.py static/jason-calacanis.jpg static/jason-ape.png
 
 
 CUDA_VISIBLE_DEVICES=0 python cyclegan1.py
