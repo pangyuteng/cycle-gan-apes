@@ -61,6 +61,7 @@ CUDA_VISIBLE_DEVICES=1 python inference.py static/jason-calcanis.jpg
 + hyperparameters from keras example was left untouched.
 + data size, apes n=10k, celeba n=202.599k
 + 200 epochs, batch size of 1, each epoch is 10k samples
-+ let see what we get tomorrow
++ unet arch seems too shallow, may need to add few more res layers, regardless, fun 2 hr project and will leave model to train overnight, let see what we get tomorrow
+
 
 ![example](static/0_1000.png)
