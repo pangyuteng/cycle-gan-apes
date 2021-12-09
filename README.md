@@ -20,6 +20,11 @@ human face - celeba
 
 https://github.com/keras-team/keras-io/blob/master/examples/generative/dcgan_overriding_train_step.py#L22
 
+above resolution too small, human-to-ape have artifacts, likely due to jpg compression & resizing.
+attempting to use the below png with higher resolution.
+https://github.com/mazzzystar/make-CelebA-HQ/blob/master/README.md
+
+
 
 
 @Jason

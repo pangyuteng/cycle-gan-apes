@@ -18,6 +18,7 @@ if __name__ == "__main__":
 
 
     imgs_A = gan.data_loader.load_data(domain="A", batch_size=1, is_testing=True)
+    #imgs_B = gan.data_loader.load_data(domain="B", batch_size=1, is_testing=False)#True)
     imgs_B = gan.data_loader.load_img(human_path)
 
     fake_B = gan.g_AB.predict(imgs_A)

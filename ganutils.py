@@ -136,6 +136,34 @@ def upsample(
         x = activation(x)
     return x
 
+# https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/issues/190
+# avoid checkboard
+def upsample_1(
+    x,
+    filters,
+    activation,
+    kernel_size=(3, 3),
+    strides=(2, 2),
+    padding="same",
+    kernel_initializer=kernel_init,
+    gamma_initializer=gamma_init,
+    use_bias=False,
+):
+
+    x = layers.UpSampling2D(size=strides,interpolation="nearest")(x)
+    x = ReflectionPadding2D(padding=(3, 3))(x)
+    x = layers.Conv2D(
+        filters,
+        kernel_size,
+        padding=padding,
+        kernel_initializer=kernel_initializer,
+        use_bias=use_bias)(x)
+    x = tfa.layers.InstanceNormalization(gamma_initializer=gamma_initializer)(x)
+    
+    if activation:
+        x = activation(x)
+    return x
+
 
 """
 ## Build the generators
