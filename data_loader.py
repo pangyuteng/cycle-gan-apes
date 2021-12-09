@@ -24,7 +24,8 @@ class DataLoader():
             path = glob('/mnt/hd2/data/apebase/ipfs/*')
             descr = 'ape'
         elif domain == 'B':
-            path = glob('/mnt/hd2/data/celeba_gan/img_align_celeba/*')
+            #path = glob('/mnt/hd2/data/celeba_gan/img_align_celeba/*')
+            path = glob('/mnt/hd2/data/ffhq_dataset/thumbnails128x128/*')
             descr = 'human'
         else:
             raise NotImplementedError()
@@ -36,11 +37,16 @@ class DataLoader():
         imgs = []
         for img_path in batch_images:
             img = self.imread(img_path)
+            print('original size',img.shape)
             if not is_testing:
                 img = resize(img, self.img_res)
 
                 if np.random.random() > 0.5:
-                    img = np.fliplr(img)
+                    #img = np.fliplr(img)
+                    augmented = aug_pipeline(
+                        image=img,
+                    )
+                    img = augmented['image']
             else:
                 img = resize(img, self.img_res)
             imgs.append(img)
@@ -56,7 +62,8 @@ class DataLoader():
         #path_B = glob('./datasets/%s/%sB/*' % (self.dataset_name, data_type))
 
         path_A = glob('/mnt/hd2/data/apebase/ipfs/*')
-        path_B = glob('/mnt/hd2/data/celeba_gan/img_align_celeba/*')
+        #path_B = glob('/mnt/hd2/data/celeba_gan/img_align_celeba/*')
+        path_B = glob('/mnt/hd2/data/ffhq_dataset/thumbnails128x128/*')
         print(len(path_A),len(path_B))
         
         self.n_batches = int(min(len(path_A), len(path_B)) / batch_size)
