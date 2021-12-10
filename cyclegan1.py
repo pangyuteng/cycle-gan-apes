@@ -144,7 +144,7 @@ class CycleGAN():
                 dB_loss = 0.5 * np.add(dB_loss_real, dB_loss_fake)
 
                 # Total disciminator loss
-                d_loss = 0.5 * np.add(dA_loss, dB_loss)
+                d_loss = 0.05 * np.add(dA_loss, dB_loss)
 
 
                 # ------------------
