@@ -138,16 +138,13 @@ class CycleGAN():
                 dA_loss_real = self.d_A.train_on_batch(imgs_A, valid)
                 dA_loss_fake = self.d_A.train_on_batch(fake_A, fake)
                 dA_loss = 0.5 * np.add(dA_loss_real, dA_loss_fake)
-                dA_loss = 0.5*dA_loss
-                
+
                 dB_loss_real = self.d_B.train_on_batch(imgs_B, valid)
                 dB_loss_fake = self.d_B.train_on_batch(fake_B, fake)
                 dB_loss = 0.5 * np.add(dB_loss_real, dB_loss_fake)
-                dB_loss = 2*dB_loss
 
                 # Total disciminator loss
                 d_loss = 0.5 * np.add(dA_loss, dB_loss)
-
 
                 # ------------------
                 #  Train Generators
