@@ -151,7 +151,6 @@ def upsample_1(
 ):
 
     x = layers.UpSampling2D(size=strides,interpolation="nearest")(x)
-    x = ReflectionPadding2D(padding=(3, 3))(x)
     x = layers.Conv2D(
         filters,
         kernel_size,
@@ -220,7 +219,7 @@ def get_resnet_generator(
     # Upsampling
     for _ in range(num_upsample_blocks):
         filters //= 2
-        x = upsample(x, filters, activation=layers.Activation("relu"))
+        x = upsample_1(x, filters, activation=layers.Activation("relu"))
 
     # Final block
     x = ReflectionPadding2D(padding=(3, 3))(x)

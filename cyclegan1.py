@@ -66,6 +66,11 @@ class CycleGAN():
         self.g_AB = self.build_generator(name="g_AB")
         self.g_BA = self.build_generator(name="g_BA")
 
+        print("self.g_AB")
+        self.g_AB.summary()
+        print("self.g_BA")
+        self.g_BA.summary()
+        
         w_list = ['saved_model/dA.h5','saved_model/dB.h5','saved_model/AB.h5','saved_model/BA.h5']
         if all([os.path.exists(x) for x in w_list]):
             print('found weights, loading them...')
