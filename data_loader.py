@@ -25,7 +25,8 @@ class DataLoader():
             descr = 'ape'
         elif domain == 'B':
             #path = glob('/mnt/hd2/data/celeba_gan/img_align_celeba/*')
-            path = glob('/mnt/hd2/data/ffhq_dataset/thumbnails128x128/*')
+            #path = glob('/mnt/hd2/data/ffhq_dataset/thumbnails128x128/*.png')
+            path = glob('/mnt/hd2/data/ffhq_dataset/images1024x1024/*.png')
             descr = 'human'
         else:
             raise NotImplementedError()
@@ -57,13 +58,14 @@ class DataLoader():
         return imgs
 
     def load_batch(self, batch_size=1, is_testing=False):
-        data_type = "train" if not is_testing else "val"
+        #data_type = "train" if not is_testing else "val"
         #path_A = glob('./datasets/%s/%sA/*' % (self.dataset_name, data_type))
         #path_B = glob('./datasets/%s/%sB/*' % (self.dataset_name, data_type))
 
         path_A = glob('/mnt/hd2/data/apebase/ipfs/*')
         #path_B = glob('/mnt/hd2/data/celeba_gan/img_align_celeba/*')
-        path_B = glob('/mnt/hd2/data/ffhq_dataset/thumbnails128x128/*')
+        #path_B = glob('/mnt/hd2/data/ffhq_dataset/thumbnails128x128/*.png')
+        path_B = glob('/mnt/hd2/data/ffhq_dataset/images1024x1024/*.png')
         print(len(path_A),len(path_B))
         
         self.n_batches = int(min(len(path_A), len(path_B)) / batch_size)

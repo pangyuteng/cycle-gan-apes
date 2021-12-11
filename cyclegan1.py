@@ -116,8 +116,13 @@ class CycleGAN():
         return get_discriminator(name=name,input_img_size=self.img_shape)
 
     def train(self, epochs, batch_size=1, sample_interval=50):
-
+        
         start_time = datetime.datetime.now()
+
+        if np.random.random() > 0.5:
+            batch_size = 1
+        else:
+            batch_size = 5
 
         # Adversarial loss ground truths
         valid = np.ones((batch_size,) + self.disc_patch)
