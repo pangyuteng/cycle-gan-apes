@@ -51,10 +51,16 @@ class DataLoader():
 
                 if np.random.random() > 0.5:
                     #img = np.fliplr(img)
-                    augmented = aug_pipeline(
-                        image=img,
-                    )
-                    img = augmented['image']
+                    if domain == 'A':
+                        augmented = aug_pipeline_aggressive(
+                            image=img,
+                        )
+                        img = augmented['image']
+                    elif domain == 'B':
+                        augmented = aug_pipeline(
+                            image=img,
+                        )
+                        img = augmented['image']
             else:
                 img = resize(img, self.img_res)
             imgs.append(img)
