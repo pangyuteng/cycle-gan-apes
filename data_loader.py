@@ -10,9 +10,11 @@ import albumentations as A
 aug_pipeline_aggressive = A.Compose([
     A.ShiftScaleRotate(),
     A.GridDistortion(p=0.5, num_steps=5),
-    A.Cutout(p=0.5, num_holes=8, max_h_size=8, max_w_size=8),
-    A.ChannelShuffle(p=0.5)
 ])
+# below 2 were removed from above after epoch 6
+# A.Cutout(p=0.5, num_holes=8, max_h_size=8, max_w_size=8),
+# A.ChannelShuffle(p=0.5),
+
 aug_pipeline = A.Compose([
     A.ShiftScaleRotate(),
 ])
