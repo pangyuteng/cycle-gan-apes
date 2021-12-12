@@ -6,6 +6,13 @@ from imageio import imread
 from skimage.transform import resize
 import albumentations as A
 
+# https://albumentations-demo.herokuapp.com
+aug_pipeline_aggressive = A.Compose([
+    A.ShiftScaleRotate(),
+    A.GridDistortion(p=0.5, num_steps=5),
+    A.Cutout(p=0.5, num_holes=8, max_h_size=8, max_w_size=8),
+    A.ChannelShuffle(p=0.5)
+])
 aug_pipeline = A.Compose([
     A.ShiftScaleRotate(),
 ])
@@ -89,7 +96,7 @@ class DataLoader():
                 if not is_testing and np.random.random() > 0.5:
                         #img_A = np.fliplr(img_A)
                         #img_B = np.fliplr(img_B)
-                        augmented = aug_pipeline(
+                        augmented = aug_pipeline_aggressive(
                             image=img_A,
                         )
                         img_A = augmented['image']
