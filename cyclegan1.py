@@ -219,8 +219,8 @@ class CycleGAN():
         os.makedirs('images/%s' % self.dataset_name, exist_ok=True)
         r, c = 2, 3
 
-        imgs_A = self.data_loader.load_data(domain="A", batch_size=1, is_testing=True)
-        imgs_B = self.data_loader.load_data(domain="B", batch_size=1, is_testing=True)
+        imgs_A = self.data_loader.load_data(domain="A", batch_size=1, is_testing=False)#True)
+        imgs_B = self.data_loader.load_data(domain="B", batch_size=1, is_testing=False)#True)
 
         # Demo (for GIF)
         #imgs_A = self.data_loader.load_img('datasets/apple2orange/testA/n07740461_1541.jpg')
