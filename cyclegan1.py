@@ -1,5 +1,16 @@
-from __future__ import print_function, division
-import scipy
+
+import os
+import random
+import numpy as np
+import tensorflow as tf
+import tensorflow_addons as tfa
+
+def seed_everything(seed=2020):
+    random.seed(seed)
+    os.environ['PYTHONHASHSEED'] = str(seed)
+    np.random.seed(seed)
+    tf.random.set_seed(seed)
+seed_everything(42)
 
 #from keras.datasets import mnist
 from keras_contrib.layers.normalization.instancenormalization import InstanceNormalization
@@ -17,10 +28,16 @@ import numpy as np
 import os
 
 from ganutils import get_resnet_generator, get_discriminator
-
+from tbutils import ImageSummaryCallback, MetricSummaryCallback
 
 class CycleGAN():
     def __init__(self):
+        
+        # logging
+        self.log_dir = './log'
+        self.image_summary_callback = ImageSummaryCallback(self.log_dir)
+        self.metric_summary_callback = MetricSummaryCallback(self.log_dir)
+        
         # Input shape
         self.img_rows = 128
         self.img_cols = 128
@@ -123,12 +140,13 @@ class CycleGAN():
     def train(self, epochs, batch_size=1, sample_interval=50):
         
         start_time = datetime.datetime.now()
-
+        '''
         if np.random.random() > 0.5:
             batch_size = 1
         else:
             batch_size = 5
-
+        '''
+        
         # Adversarial loss ground truths
         valid = np.ones((batch_size,) + self.disc_patch)
         fake = np.zeros((batch_size,) + self.disc_patch)
@@ -179,6 +197,16 @@ class CycleGAN():
                                                                             np.mean(g_loss[5:6]),
                                                                             elapsed_time))
 
+                # logging
+                mydict = dict(
+                    d_loss = d_loss[0],
+                    g_loss = g_loss[0],
+                    adv = np.mean(g_loss[1:3]),
+                    recon = np.mean(g_loss[3:5]),
+                    id = np.mean(g_loss[5:6]),
+                )
+                self.metric_summary_callback.on_epoch_end(epoch,mydict=mydict)
+
                 # If at save interval => save generated image samples
                 if batch_i % sample_interval == 0:
                     self.sample_images(epoch, batch_i)
@@ -221,8 +249,9 @@ class CycleGAN():
                 cnt += 1
         fig.savefig("images/%s/%d_%d.png" % (self.dataset_name, epoch, batch_i))
         plt.close()
+        self.image_summary_callback.on_epoch_end(epoch,mydict={"img":gen_imgs*255})
 
 
 if __name__ == '__main__':
-    gan = CycleGAN()
+    gan = CycleGAN()    
     gan.train(epochs=200, batch_size=1, sample_interval=200)

@@ -44,7 +44,7 @@ https://github.com/eriklindernoren/Keras-GAN/tree/master/cyclegan
 
 docker build -t apes .
                                                                                     
-docker run -it -w /workdir -v $PWD:/workdir -v /mnt/hd0:/mnt/hd0 apes bash                               
+docker run -it -p 6006:6006 -w /workdir -v $PWD:/workdir -v /mnt/hd2:/mnt/hd2 apes bash
 
 # download data
 python download.py
@@ -60,6 +60,8 @@ CUDA_VISIBLE_DEVICES=1 python inference.py static/jason-calacanis.jpg static/jas
 
 
 CUDA_VISIBLE_DEVICES=0 python cyclegan1.py
+
+tensorboard --logdir=log --bind_all
 
 ``` 
 
