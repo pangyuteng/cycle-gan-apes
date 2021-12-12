@@ -5,12 +5,14 @@ import numpy as np
 import tensorflow as tf
 import tensorflow_addons as tfa
 
-def seed_everything(seed=2020):
+''' # live alittle
+def seed_everything(seed=42):
     random.seed(seed)
     os.environ['PYTHONHASHSEED'] = str(seed)
     np.random.seed(seed)
     tf.random.set_seed(seed)
 seed_everything(42)
+'''
 
 #from keras.datasets import mnist
 from keras_contrib.layers.normalization.instancenormalization import InstanceNormalization

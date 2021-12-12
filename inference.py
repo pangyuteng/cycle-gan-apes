@@ -1,7 +1,7 @@
 
 import sys
-#from cyclegan import CycleGAN
-from cyclegan1 import CycleGAN
+#from cyclegan_unet import CycleGAN
+from cyclegan_resnet import CycleGAN
 
 import numpy as np
 import matplotlib.pyplot as plt

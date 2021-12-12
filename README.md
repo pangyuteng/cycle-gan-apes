@@ -53,13 +53,13 @@ bash download.sh
 # move the downloaded data to desired locations and modify paths accordingly in `data_loader.py`
 
 # train
-CUDA_VISIBLE_DEVICES=0 python cyclegan.py
+CUDA_VISIBLE_DEVICES=0 python cyclegan_unet.py
 
 # inference
 CUDA_VISIBLE_DEVICES=1 python inference.py static/jason-calacanis.jpg static/jason-ape.png
 
 
-CUDA_VISIBLE_DEVICES=0 python cyclegan1.py
+CUDA_VISIBLE_DEVICES=0 python cyclegan_resnet.py
 
 tensorboard --logdir=log --bind_all
 
