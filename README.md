@@ -1,8 +1,8 @@
 # cycle-gan-apes
 
 
-## sample image at epoch 0 batch 1000 
-![example](static/6_8200.png)
+## sample image at ~ epoch 10
+![example](static/4_4400.png)
 
 
 # usage
