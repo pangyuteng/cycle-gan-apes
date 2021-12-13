@@ -21,9 +21,11 @@ bash download.sh
 
 # train
 CUDA_VISIBLE_DEVICES=0 python cyclegan_unet.py
-# ^^^abandoned above.
+# ^^^above is abandoned.
 
 CUDA_VISIBLE_DEVICES=0 python cyclegan_resnet.py
+# traing along side, since resnet generator weights are updated
+CUDA_VISIBLE_DEVICES=1 python upsample.py
 
 # monitor
 tensorboard --logdir=log --bind_all
