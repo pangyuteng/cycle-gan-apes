@@ -1,3 +1,4 @@
+# https://github.com/eriklindernoren/Keras-GAN/blob/master/cyclegan/cyclegan.py
 # https://github.com/keras-team/keras-io/blob/master/examples/generative/cyclegan.py
 
 

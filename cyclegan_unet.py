@@ -1,3 +1,6 @@
+# source:
+# https://github.com/eriklindernoren/Keras-GAN/blob/master/cyclegan/cyclegan.py
+# 
 from __future__ import print_function, division
 import scipy
 

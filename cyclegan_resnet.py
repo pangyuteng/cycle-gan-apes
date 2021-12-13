@@ -1,4 +1,6 @@
-
+# source:
+# https://github.com/keras-team/keras-io/blob/master/examples/generative/cyclegan.py 
+#
 import os
 import random
 import numpy as np
