@@ -52,7 +52,7 @@ CUDA_VISIBLE_DEVICES=1 python upsample.py
 tensorboard --logdir=log --bind_all
 
 
-# inference
+# inference, i archived the weights in `archived_weights` for the lazy but curious souls.
 CUDA_VISIBLE_DEVICES=1 python inference.py static/jason-calacanis.jpg static/ape-jason.png
 
 
