@@ -1,4 +1,4 @@
-
+import traceback
 #from keras.datasets import mnist
 from keras_contrib.layers.normalization.instancenormalization import InstanceNormalization
 from keras.layers import Input, Dense, Reshape, Flatten, Dropout, Concatenate
