@@ -14,7 +14,7 @@ https://github.com/nathancooperjones/thisboredapedoesnotexist
 
 Thought to myself why not waste a few hours to train a vanilla cycle-gan to generate personalized apes? a guesstimated 2 hr project later turned to a weekend project...
 
-nn architectures copied pasted straight from below:
+nn architectures copy pasted straight from below:
 resnet: https://github.com/keras-team/keras-io/blob/master/examples/generative/cyclegan.py
 unet: https://github.com/eriklindernoren/Keras-GAN/tree/master/cyclegan
 
