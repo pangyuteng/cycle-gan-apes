@@ -144,7 +144,7 @@ class UpsampleGAN():
                 # ----------------------
                 
                 fake_B = self.gan.g_AB.predict(imgs_sm)
-                fake_A = self.gan.g_AB.predict(fake_B)
+                fake_A = self.gan.g_BA.predict(fake_B)
 
                 pred_imgs_lg1 = self.g_AB.predict(fake_A)
                 pred_imgs_lg2 = self.g_AB.predict(imgs_sm)
@@ -182,22 +182,28 @@ class UpsampleGAN():
           
     def sample_images(self, epoch, batch_i):
         os.makedirs('images/%s' % self.dataset_name, exist_ok=True)
-        r, c = 2,1
+        r, c = 1,3
 
         imgs_lg, imgs_sm = self.data_loader.load_data_for_upsample(domain="A", batch_size=1, is_testing=True)
 
-        # Translate images to the other domain
-        pred_imgs_lg = self.g_AB.predict(imgs_sm)
+        fake_B = self.gan.g_AB.predict(imgs_sm)
+        fake_A = self.gan.g_BA.predict(fake_B)
 
-        gen_imgs = np.concatenate([imgs_lg,pred_imgs_lg])
+        # Translate images to the other domain
+        pred_imgs_lg1 = self.g_AB.predict(fake_A)
+
+        # Translate images to the other domain
+        pred_imgs_lg2 = self.g_AB.predict(imgs_sm)
+
+        gen_imgs = np.concatenate([imgs_lg,pred_imgs_lg1,pred_imgs_lg2])
 
         # Rescale images 0 - 1
         gen_imgs = 0.5 * gen_imgs + 0.5
 
-        titles = ['original','upsampled']
+        titles = ['original','upsampled','tranformed_upsampled']
         fig, axs = plt.subplots(r, c)
         cnt = 0
-        for i in range(r):
+        for i in range(c):
             axs[i].imshow(gen_imgs[cnt])
             axs[i].set_title(titles[i])
             axs[i].axis('off')
