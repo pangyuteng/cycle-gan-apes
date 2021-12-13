@@ -179,6 +179,11 @@ class UpsampleGAN():
                 if batch_i % sample_interval == 0:
                     self.sample_images(epoch, batch_i)
                     self.g_AB.save_weights("saved_model_upsample/AB.h5")
+                    self.d_A.save_weights("saved_model_upsample/dA.h5")
+                    try:
+                        self.gan.g_AB.load_weights("saved_model/AB.h5")
+                    except:
+                        traceback.print_exc()
           
     def sample_images(self, epoch, batch_i):
         os.makedirs('images/%s' % self.dataset_name, exist_ok=True)
