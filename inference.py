@@ -1,7 +1,8 @@
 
 import sys
-#from cyclegan_unet import CycleGAN
+import imageio
 from cyclegan_resnet import CycleGAN
+from upsample import UpsampleGAN
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -11,11 +12,12 @@ if __name__ == "__main__":
     human_path = sys.argv[1]
     ape_path = sys.argv[2]
 
-
     gan = CycleGAN() # A is ape, B is human.
     gan.g_AB.load_weights("saved_model/AB.h5")
     gan.g_BA.load_weights("saved_model/BA.h5")
 
+    up = UpsampleGAN()
+    up.g_AB.load_weights("saved_model_upsample/AB.h5")
 
     imgs_A = gan.data_loader.load_data(domain="A", batch_size=1, is_testing=True)
     #imgs_B = gan.data_loader.load_data(domain="B", batch_size=1, is_testing=False)#True)
@@ -27,9 +29,12 @@ if __name__ == "__main__":
     reconstr_A = gan.g_BA.predict(fake_B)
     reconstr_B = gan.g_AB.predict(fake_A)
 
+    fake_A_upsampled = up.g_AB.predict(fake_A)
+
+    
     gen_imgs = np.concatenate([imgs_A, fake_B, reconstr_A, imgs_B, fake_A, reconstr_B])
 
-    # Rescale images 0 - 1
+    # Rescale images 0 - 1    
     gen_imgs = 0.5 * gen_imgs + 0.5
 
     titles = ['Original', 'Translated', 'Reconstructed']
@@ -44,4 +49,10 @@ if __name__ == "__main__":
             cnt += 1
     fig.savefig(ape_path)
     plt.close()
+    
+    fake_A_upsampled = (255*(0.5 * fake_A_upsampled + 0.5)).astype(np.uint8)
+    imageio.imwrite(
+        ape_path.replace(".png","_upsampled.png"),
+        fake_A_upsampled.squeeze()
+    )
 
