@@ -64,7 +64,9 @@ class UpsampleGAN():
 
         self.gan = CycleGAN() # A is ape, B is human.
         self.gan.g_AB.load_weights("saved_model/AB.h5")
-        self.gan.g_AB.trainable = False        
+        self.gan.g_AB.trainable = False
+        self.gan.g_BA.load_weights("saved_model/BA.h5")
+        self.gan.g_BA.trainable = False
 
         img_sm = Input(shape=self.img_shape)
         img_lg = self.g_AB(img_sm)
@@ -182,6 +184,7 @@ class UpsampleGAN():
                     self.d_A.save_weights("saved_model_upsample/dA.h5")
                     try:
                         self.gan.g_AB.load_weights("saved_model/AB.h5")
+                        self.gan.g_BA.load_weights("saved_model/BA.h5")
                     except:
                         traceback.print_exc()
           
