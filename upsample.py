@@ -189,12 +189,9 @@ class UpsampleGAN():
         fake_B = self.gan.g_AB.predict(imgs_sm)
         fake_A = self.gan.g_BA.predict(fake_B)
 
-        # Translate images to the other domain
-        pred_imgs_lg1 = self.g_AB.predict(fake_A)
-
-        # Translate images to the other domain
-        pred_imgs_lg2 = self.g_AB.predict(imgs_sm)
-
+        pred_imgs_lg1 = self.g_AB.predict(imgs_sm)
+        pred_imgs_lg2 = self.g_AB.predict(fake_A)
+        
         gen_imgs = np.concatenate([imgs_lg,pred_imgs_lg1,pred_imgs_lg2])
 
         # Rescale images 0 - 1
