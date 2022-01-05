@@ -84,7 +84,7 @@ class CycleGAN():
 
         # Build the generators
         self.g_AB = self.build_generator(name="g_AB",filters=64) # ape 2 human
-        self.g_BA = self.build_generator(name="g_BA",filters=32) # human 2 ape
+        self.g_BA = self.build_generator(name="g_BA",filters=64) # human 2 ape
 
         if False:
             print("self.g_AB")
