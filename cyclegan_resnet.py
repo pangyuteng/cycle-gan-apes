@@ -7,14 +7,12 @@ import numpy as np
 import tensorflow as tf
 import tensorflow_addons as tfa
 
-''' # live alittle
-def seed_everything(seed=42):
+def seed_everything(seed=42690):
     random.seed(seed)
     os.environ['PYTHONHASHSEED'] = str(seed)
     np.random.seed(seed)
     tf.random.set_seed(seed)
-seed_everything(42)
-'''
+seed_everything(42690)
 
 #from keras.datasets import mnist
 from keras_contrib.layers.normalization.instancenormalization import InstanceNormalization
@@ -67,6 +65,7 @@ class CycleGAN():
         self.lambda_id = 0.1 * self.lambda_cycle    # Identity loss
 
         optimizer = Adam(0.0002, 0.5)
+        #optimizer = Adam(0.000002, 0.9)
 
         # Build and compile the discriminators
         self.d_A = self.build_discriminator(name="d_A")
@@ -84,8 +83,8 @@ class CycleGAN():
         #-------------------------
 
         # Build the generators
-        self.g_AB = self.build_generator(name="g_AB")
-        self.g_BA = self.build_generator(name="g_BA")
+        self.g_AB = self.build_generator(name="g_AB",filters=64) # ape 2 human
+        self.g_BA = self.build_generator(name="g_BA",filters=32) # human 2 ape
 
         if False:
             print("self.g_AB")
@@ -136,8 +135,8 @@ class CycleGAN():
                                             self.lambda_id, self.lambda_id ],
                             optimizer=optimizer)
 
-    def build_generator(self,name):
-        return get_resnet_generator(name=name,input_img_size=self.img_shape)
+    def build_generator(self,name,filters):
+        return get_resnet_generator(name=name,filters=filters,input_img_size=self.img_shape)
 
     def build_discriminator(self,name):
         return get_discriminator(name=name,input_img_size=self.img_shape)

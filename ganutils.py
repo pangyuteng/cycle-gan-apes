@@ -195,7 +195,7 @@ def get_resnet_generator(
     input_img_size=INPUT_IMG_SIZE,
     filters=64,
     num_downsampling_blocks=2,
-    num_residual_blocks=9,
+    num_residual_blocks=12,
     num_upsample_blocks=2,
     gamma_initializer=gamma_init,
     name=None,
