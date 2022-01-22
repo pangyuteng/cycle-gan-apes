@@ -7,7 +7,7 @@ if [ ! -f static/jason-calacanis.jpg ]; then
     curl https://global-uploads.webflow.com/5dfd5aca7badfa129f80056c/5f8790c5f9108d686c4bc35a_DavidSacksRecommendedBooks.jpeg --output static/david-sacks.jpg
 fi
 
-CUDA_VISIBLE_DEVICES=1 python inference.py static/jason-calacanis.jpg static/ape-calacanis.png
-CUDA_VISIBLE_DEVICES=1 python inference.py static/david-friedberg.png static/ape-friedberg.png
-CUDA_VISIBLE_DEVICES=1 python inference.py static/chamath-palihapitiya.jpg static/ape-palihapitiya.png
-CUDA_VISIBLE_DEVICES=1 python inference.py static/david-sacks.jpg static/ape-sacks.png
+CUDA_VISIBLE_DEVICES=0 python inference.py static/jason-calacanis.jpg static/ape-calacanis.png
+CUDA_VISIBLE_DEVICES=0 python inference.py static/david-friedberg.png static/ape-friedberg.png
+CUDA_VISIBLE_DEVICES=0 python inference.py static/chamath-palihapitiya.jpg static/ape-palihapitiya.png
+CUDA_VISIBLE_DEVICES=0 python inference.py static/david-sacks.jpg static/ape-sacks.png
