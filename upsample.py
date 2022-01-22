@@ -61,7 +61,7 @@ class UpsampleGAN():
         # Build the generators
         self.g_AB = self.build_generator()
         self.g_AB.summary()
-        
+
         self.gan = CycleGAN() # A is ape, B is human.
         self.gan.g_AB.load_weights("saved_model/AB.h5")
         self.gan.g_AB.trainable = False
@@ -87,7 +87,7 @@ class UpsampleGAN():
     def build_generator(self):
         """U-Net Generator"""
 
-        def deconv2d(layer_input, filters, strides=1,f_size=4, dropout_rate=0):
+        def deconv2d(layer_input, filters, strides=1,f_size=3, dropout_rate=0):
             """Layers used during upsampling"""
             u = UpSampling2D(size=2)(layer_input)
             u = Conv2D(filters, kernel_size=f_size, strides=1, padding='same', activation='relu')(u)
@@ -103,13 +103,13 @@ class UpsampleGAN():
         u1 = deconv2d(d0, self.gf*4,dropout_rate=0.2)
         u2 = deconv2d(u1, self.gf*2,dropout_rate=0.2)
         #u3 = deconv2d(u2, self.gf,dropout_rate=0.2)
-        output_img = Conv2D(self.channels, kernel_size=4, strides=1, padding='same', activation='tanh')(u2)
+        output_img = Conv2D(self.channels, kernel_size=3, strides=1, padding='same', activation='tanh')(u2)
 
         return Model(d0, output_img)
 
     def build_discriminator(self):
 
-        def d_layer(layer_input, filters, f_size=4, normalization=True):
+        def d_layer(layer_input, filters, f_size=3, normalization=True):
             """Discriminator layer"""
             d = Conv2D(filters, kernel_size=f_size, strides=2, padding='same')(layer_input)
             d = LeakyReLU(alpha=0.2)(d)
@@ -124,7 +124,7 @@ class UpsampleGAN():
         d3 = d_layer(d2, self.df*4)
         d4 = d_layer(d3, self.df*8)
 
-        validity = Conv2D(1, kernel_size=4, strides=1, padding='same')(d4)
+        validity = Conv2D(1, kernel_size=3, strides=1, padding='same')(d4)
 
         return Model(img, validity)
 
