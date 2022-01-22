@@ -61,7 +61,7 @@ class UpsampleGAN():
         # Build the generators
         self.g_AB = self.build_generator()
         self.g_AB.summary()
-
+        
         self.gan = CycleGAN() # A is ape, B is human.
         self.gan.g_AB.load_weights("saved_model/AB.h5")
         self.gan.g_AB.trainable = False
@@ -87,7 +87,7 @@ class UpsampleGAN():
     def build_generator(self):
         """U-Net Generator"""
 
-        def deconv2d(layer_input, filters, f_size=4, dropout_rate=0):
+        def deconv2d(layer_input, filters, strides=1,f_size=4, dropout_rate=0):
             """Layers used during upsampling"""
             u = UpSampling2D(size=2)(layer_input)
             u = Conv2D(filters, kernel_size=f_size, strides=1, padding='same', activation='relu')(u)
@@ -100,12 +100,10 @@ class UpsampleGAN():
         d0 = Input(shape=self.img_shape)
 
         # Upsampling
-        u1 = deconv2d(d0, self.gf*4)
-        #u2 = deconv2d(u1, self.gf*2)
-        #u3 = deconv2d(u2, self.gf)
-
-        u4 = UpSampling2D(size=2)(u1)
-        output_img = Conv2D(self.channels, kernel_size=4, strides=1, padding='same', activation='tanh')(u4)
+        u1 = deconv2d(d0, self.gf*4,dropout_rate=0.2)
+        u2 = deconv2d(u1, self.gf*2,dropout_rate=0.2)
+        #u3 = deconv2d(u2, self.gf,dropout_rate=0.2)
+        output_img = Conv2D(self.channels, kernel_size=4, strides=1, padding='same', activation='tanh')(u2)
 
         return Model(d0, output_img)
 
