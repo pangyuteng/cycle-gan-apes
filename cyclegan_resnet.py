@@ -12,7 +12,7 @@ def seed_everything(seed=42690):
     os.environ['PYTHONHASHSEED'] = str(seed)
     np.random.seed(seed)
     tf.random.set_seed(seed)
-seed_everything(42690)
+seed_everything(4269)
 
 #from keras.datasets import mnist
 from keras_contrib.layers.normalization.instancenormalization import InstanceNormalization
@@ -64,8 +64,8 @@ class CycleGAN():
         self.lambda_cycle = 10.0                    # Cycle-consistency loss
         self.lambda_id = 0.1 * self.lambda_cycle    # Identity loss
 
-        optimizer = Adam(0.0002, 0.5)
-        #optimizer = Adam(0.000002, 0.9)
+        #optimizer = Adam(0.0002, 0.5)
+        optimizer = Adam(0.0001, 0.4)
 
         # Build and compile the discriminators
         self.d_A = self.build_discriminator(name="d_A")
