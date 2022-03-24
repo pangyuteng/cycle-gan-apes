@@ -11,6 +11,8 @@ import sys
 import random
 import numpy as np
 import tensorflow as tf
+import json
+import datetime
 
 class ImageSummaryCallback(tf.keras.callbacks.Callback):
     def __init__(self, logdir):
@@ -37,5 +39,11 @@ class MetricSummaryCallback(tf.keras.callbacks.Callback):
         with self.file_writer.as_default():
             for name, value in mydict.items():
                 tf.summary.scalar(name, value, step=self.count)
-                self.file_writer.flush()
-                self.count+=1
+
+            mydict['count']=self.count
+            mydict['epoch']=epoch
+            with open(os.path.join(self.logdir,f"metrics-{self.tstamp}.json"),'a+') as f:
+                f.write(json.dumps(mydict)+"\n")
+
+            self.file_writer.flush()
+            self.count+=1
