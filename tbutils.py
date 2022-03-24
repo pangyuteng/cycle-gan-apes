@@ -35,6 +35,9 @@ class MetricSummaryCallback(tf.keras.callbacks.Callback):
         self.logdir = logdir
         self.file_writer = tf.summary.create_file_writer(self.logdir)
         self.count = 0
+        
+        self.tstamp = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+
     def on_epoch_end(self, epoch, logs=None, mydict=None):        
         with self.file_writer.as_default():
             for name, value in mydict.items():
